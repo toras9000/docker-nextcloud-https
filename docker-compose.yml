@@ -16,11 +16,14 @@ services:
     links:
       - db:db-container
     volumes:
+      - ./assets/startup:/startup_assets
       - ../volumes/nextcloud/app/html:/var/www/html
+    command: sh /startup_assets/run.sh
     networks:
       default:
         ipv4_address: 172.16.1.20
     environment:
+      - NEXTCLOUD_UPDATE=1
       - POSTGRES_HOST=db-container
       - POSTGRES_USER=nextcloud_user
       - POSTGRES_PASSWORD=nextcloud_secret
